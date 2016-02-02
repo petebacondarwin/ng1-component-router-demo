@@ -1,0 +1,17 @@
+{
+  "name": "component-router-angular-1",
+  "version": "1.0.0",
+  "description": "Angular 1 implementation of Component Router demo",
+  "main": "",
+  "keywords": [],
+  "author": "Pete Bacon Darwin <pete@bacondarwin.com>",
+  "license": "MIT",
+  "scripts": { "start": "lite-server" },
+  "dependencies": {
+    "@angular/router": "*",
+    "angular": "beta"
+  },
+  "devDependencies": {
+    "lite-server": "^2.0.1"
+  }
+}
