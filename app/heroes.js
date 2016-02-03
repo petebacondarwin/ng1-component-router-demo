@@ -16,7 +16,6 @@ angular.module('heroes', [])
       '<div ng-repeat="hero in $ctrl.heroes">\n' +
         '<a ng-link="[\'HeroDetail\', {id: hero.id}]">{{hero.name}}</a>\n' +
       '</div>',
-    require: { 'ngOutlet': '^ngOutlet' },
     controller: HeroListComponent
   })
 
@@ -32,7 +31,6 @@ angular.module('heroes', [])
       '  </div>\n' +
       '  <button ng-click="$ctrl.gotoHeroes()">Back</button>\n' +
       '</div>\n',
-    require: { 'ngOutlet': '^ngOutlet' },
     controller: HeroDetailComponent
   });
 
@@ -65,14 +63,14 @@ function HeroListComponent(heroService) {
   var _router;
   var ctrl = this;
 
-  this.$onInit = function() {
+  this.$routerOnActivate = function(router, next) {
     // Get hold of the nearest router
-    _router = ctrl.ngOutlet.$$router;
+    _router = router;
 
     // Load up the heroes for this view
     heroService.getHeroes().then(function(heroes) {
       ctrl.heroes = heroes;
-      _selectedId = ctrl.ngOutlet.$$routeParams.id;
+      _selectedId = next.params.id;
     });
   };
 
@@ -89,11 +87,11 @@ function HeroDetailComponent(heroService, $router) {
   var ctrl = this;
   var _router;
 
-  this.$onInit = function() {
+  this.$routerOnActivate = function(router, next) {
     // Get hold of the nearest router
-    _router = ctrl.ngOutlet.$$router;
+    _router = router;
     // Get the hero identified by the route parameter
-    var id = ctrl.ngOutlet.$$routeParams.id;
+    var id = next.params.id;
     heroService.getHero(id).then(function(hero) {
       ctrl.hero = hero;
     });
@@ -101,6 +99,6 @@ function HeroDetailComponent(heroService, $router) {
 
   this.gotoHeroes = function() {
     var heroId = this.hero && this.hero.id;
-    _router.navigate(['../../Heroes', {id: heroId}]);
+    _router.navigate(['HeroList', {id: heroId}]);
   };
 }

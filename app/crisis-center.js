@@ -23,8 +23,10 @@ angular.module('crisis-center', [])
       // '  </a>' +
       '  </li>\n' +
       '</ul>\n',
-    require: { 'ngOutlet': '^ngOutlet' },
-    controller: CrisisListComponent
+    controller: CrisisListComponent,
+    $canActivate: function($nextInstruction, $prevInstruction) {
+      console.log('$canActivate', arguments);
+    }
   })
 
   .component('crisisDetail', {
@@ -40,7 +42,6 @@ angular.module('crisis-center', [])
       '  <button ng-click="$ctrl.save()">Save</button>\n' +
       '  <button ng-click="$ctrl.cancel()">Cancel</button>\n' +
       '</div>\n',
-    require: { 'ngOutlet': '^ngOutlet' },
     controller: CrisisDetailComponent
   });
 
@@ -71,14 +72,14 @@ function CrisisListComponent(crisisService) {
   var _router;
   var ctrl = this;
 
-  this.$onInit = function() {
+  this.$routerOnActivate = function(router, next) {
+    console.log('$routerOnActivate', this, arguments);
     // Get hold of the nearest router
-    _router = ctrl.ngOutlet.$$router;
-
+    _router = router;
     // Load up the crises for this view
     crisisService.getCrises().then(function(crises) {
       ctrl.crises = crises;
-      _selectedId = ctrl.ngOutlet.$$routeParams.id;
+      _selectedId = next.params.id;
     });
   };
 
@@ -95,11 +96,11 @@ function CrisisDetailComponent(crisisService, dialogService) {
   var ctrl = this;
   var _router;
 
-  this.$onInit = function() {
+  this.$routerOnActivate = function(router, next) {
     // Get hold of the nearest router
-    _router = ctrl.ngOutlet.$$router;
+    _router = router
     // Get the crisis identified by the route parameter
-    var id = ctrl.ngOutlet.$$routeParams.id;
+    var id = next.params.id;
     crisisService.getCrisis(id).then(function(crisis) {
       if (crisis) {
         ctrl.editName = crisis.name;
