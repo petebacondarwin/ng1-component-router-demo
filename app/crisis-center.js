@@ -72,10 +72,8 @@ function CrisisListComponent(crisisService) {
   var _router;
   var ctrl = this;
 
-  this.$routerOnActivate = function(router, next) {
+  this.$routerOnActivate = function(next) {
     console.log('$routerOnActivate', this, arguments);
-    // Get hold of the nearest router
-    _router = router;
     // Load up the crises for this view
     crisisService.getCrises().then(function(crises) {
       ctrl.crises = crises;
@@ -88,17 +86,13 @@ function CrisisListComponent(crisisService) {
   };
 
   this.onSelect = function(crisis) {
-    _router.navigate(['CrisisDetail', { id: crisis.id }]);
+    this.$router.navigate(['CrisisDetail', { id: crisis.id }]);
   };
 };
 
 function CrisisDetailComponent(crisisService, dialogService) {
   var ctrl = this;
-  var _router;
-
-  this.$routerOnActivate = function(router, next) {
-    // Get hold of the nearest router
-    _router = router
+  this.$routerOnActivate = function(next) {
     // Get the crisis identified by the route parameter
     var id = next.params.id;
     crisisService.getCrisis(id).then(function(crisis) {
@@ -135,7 +129,7 @@ function CrisisDetailComponent(crisisService, dialogService) {
     var crisisId = ctrl.crisis && ctrl.crisis.id;
     // Pass along the hero id if available
     // so that the CrisisListComponent can select that hero.
-    _router.navigate(['CrisisList', {id: crisisId}]);
+    this.$router.navigate(['CrisisList', {id: crisisId}]);
   };
 }
 

@@ -60,13 +60,9 @@ function HeroService($q) {
 
 function HeroListComponent(heroService) {
   var _selectedId = null;
-  var _router;
   var ctrl = this;
 
-  this.$routerOnActivate = function(router, next) {
-    // Get hold of the nearest router
-    _router = router;
-
+  this.$routerOnActivate = function(next) {
     // Load up the heroes for this view
     heroService.getHeroes().then(function(heroes) {
       ctrl.heroes = heroes;
@@ -79,17 +75,14 @@ function HeroListComponent(heroService) {
   };
 
   this.onSelect = function(hero) {
-    _router.navigate(['HeroDetail', { id: hero.id }]);
+    $this.router.navigate(['HeroDetail', { id: hero.id }]);
   };
 }
 
-function HeroDetailComponent(heroService, $router) {
+function HeroDetailComponent(heroService) {
   var ctrl = this;
-  var _router;
 
-  this.$routerOnActivate = function(router, next) {
-    // Get hold of the nearest router
-    _router = router;
+  this.$routerOnActivate = function(next) {
     // Get the hero identified by the route parameter
     var id = next.params.id;
     heroService.getHero(id).then(function(hero) {
@@ -99,6 +92,6 @@ function HeroDetailComponent(heroService, $router) {
 
   this.gotoHeroes = function() {
     var heroId = this.hero && this.hero.id;
-    _router.navigate(['HeroList', {id: heroId}]);
+    this.$router.navigate(['HeroList', {id: heroId}]);
   };
 }
