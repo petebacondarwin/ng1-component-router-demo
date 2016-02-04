@@ -23,6 +23,7 @@ angular.module('crisis-center', [])
       // '  </a>' +
       '  </li>\n' +
       '</ul>\n',
+    bindings: { router: '=' },
     controller: CrisisListComponent,
     $canActivate: function($nextInstruction, $prevInstruction) {
       console.log('$canActivate', arguments);
@@ -42,6 +43,7 @@ angular.module('crisis-center', [])
       '  <button ng-click="$ctrl.save()">Save</button>\n' +
       '  <button ng-click="$ctrl.cancel()">Cancel</button>\n' +
       '</div>\n',
+    bindings: { router: '=' },
     controller: CrisisDetailComponent
   });
 
@@ -86,7 +88,7 @@ function CrisisListComponent(crisisService) {
   };
 
   this.onSelect = function(crisis) {
-    this.$router.navigate(['CrisisDetail', { id: crisis.id }]);
+    this.router.navigate(['CrisisDetail', { id: crisis.id }]);
   };
 };
 
@@ -129,7 +131,7 @@ function CrisisDetailComponent(crisisService, dialogService) {
     var crisisId = ctrl.crisis && ctrl.crisis.id;
     // Pass along the hero id if available
     // so that the CrisisListComponent can select that hero.
-    this.$router.navigate(['CrisisList', {id: crisisId}]);
+    this.router.navigate(['CrisisList', {id: crisisId}]);
   };
 }
 

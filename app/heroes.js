@@ -31,6 +31,7 @@ angular.module('heroes', [])
       '  </div>\n' +
       '  <button ng-click="$ctrl.gotoHeroes()">Back</button>\n' +
       '</div>\n',
+    bindings: { router: '=' },
     controller: HeroDetailComponent
   });
 
@@ -92,6 +93,6 @@ function HeroDetailComponent(heroService) {
 
   this.gotoHeroes = function() {
     var heroId = this.hero && this.hero.id;
-    this.$router.navigate(['HeroList', {id: heroId}]);
+    this.router.navigate(['HeroList', {id: heroId}]);
   };
 }
