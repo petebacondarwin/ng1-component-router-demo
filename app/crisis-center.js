@@ -23,7 +23,7 @@ angular.module('crisis-center', [])
       // '  </a>' +
       '  </li>\n' +
       '</ul>\n',
-    bindings: { $router: '=' },
+    bindings: { $router: '<' },
     controller: CrisisListComponent,
     $canActivate: function($nextInstruction, $prevInstruction) {
       console.log('$canActivate', arguments);
@@ -32,7 +32,7 @@ angular.module('crisis-center', [])
 
   .component('crisisDetail', {
     templateUrl: 'app/crisisDetail.html',
-    bindings: { $router: '=' },
+    bindings: { $router: '<' },
     controller: CrisisDetailComponent
   });
 

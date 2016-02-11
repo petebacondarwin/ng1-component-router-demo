@@ -31,7 +31,7 @@ angular.module('heroes', [])
       '  </div>\n' +
       '  <button ng-click="$ctrl.gotoHeroes()">Back</button>\n' +
       '</div>\n',
-    bindings: { $router: '=' },
+    bindings: { $router: '<' },
     controller: HeroDetailComponent
   });
 

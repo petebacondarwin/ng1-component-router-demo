@@ -9,7 +9,7 @@
   "scripts": { "start": "lite-server" },
   "dependencies": {
     "@angular/router": "*",
-    "angular": "beta"
+    "angular": "1.5.0"
   },
   "devDependencies": {
     "lite-server": "^2.0.1"
