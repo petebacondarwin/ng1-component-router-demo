@@ -8,7 +8,6 @@ angular.module('app', ['ngComponentRouter', 'dialog', 'heroes', 'crisis-center']
   $rootRouter.config([
     { path: '/...', name: 'App', component: 'app', useAsDefault: true }
   ]);
-  $rootRouter.navigate(['App']);
 })
 
 .component('app', {
@@ -21,6 +20,6 @@ angular.module('app', ['ngComponentRouter', 'dialog', 'heroes', 'crisis-center']
   $routeConfig: [
     {path: '/crisis-center/...', name: 'CrisisCenter', component: 'crisisCenter', useAsDefault: true},
     {path: '/heroes/...', name: 'Heroes', component: 'heroes'},
-    {path: '/disaster', name: 'Asteroid', redirectTo: ['CrisisCenter', 'CrisisDetail', {id:3}]}
+//    {path: '/disaster', name: 'Asteroid', redirectTo: ['CrisisCenter', 'CrisisDetail', {id:3}]}
   ]
 });

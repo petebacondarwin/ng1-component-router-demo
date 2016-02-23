@@ -13,7 +13,8 @@ angular.module('heroes', [])
 
   .component('heroList', {
     template:
-      '<div ng-repeat="hero in $ctrl.heroes">\n' +
+      '<div ng-repeat="hero in $ctrl.heroes" ' +
+      '     ng-class="{ selected: $ctrl.isSelected(hero) }">\n' +
         '<a ng-link="[\'HeroDetail\', {id: hero.id}]">{{hero.name}}</a>\n' +
       '</div>',
     controller: HeroListComponent
@@ -61,12 +62,12 @@ function HeroService($q) {
 
 function HeroListComponent(heroService) {
   var _selectedId = null;
-  var ctrl = this;
+  var $ctrl = this;
 
   this.$routerOnActivate = function(next) {
     // Load up the heroes for this view
     heroService.getHeroes().then(function(heroes) {
-      ctrl.heroes = heroes;
+      $ctrl.heroes = heroes;
       _selectedId = next.params.id;
     });
   };
@@ -74,20 +75,16 @@ function HeroListComponent(heroService) {
   this.isSelected = function(hero) {
     return (hero.id == _selectedId);
   };
-
-  this.onSelect = function(hero) {
-    this.$router.navigate(['HeroDetail', { id: hero.id }]);
-  };
 }
 
 function HeroDetailComponent(heroService) {
-  var ctrl = this;
+  var $ctrl = this;
 
   this.$routerOnActivate = function(next) {
     // Get the hero identified by the route parameter
     var id = next.params.id;
     heroService.getHero(id).then(function(hero) {
-      ctrl.hero = hero;
+      $ctrl.hero = hero;
     });
   };
 
