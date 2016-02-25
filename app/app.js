@@ -4,11 +4,7 @@ angular.module('app', ['ngComponentRouter', 'dialog', 'heroes', 'crisis-center']
   $locationProvider.html5Mode(true);
 })
 
-.run(function($rootRouter) {
-  $rootRouter.config([
-    { path: '/...', name: 'App', component: 'app', useAsDefault: true }
-  ]);
-})
+.value('$routerRootComponent', 'app')
 
 .component('app', {
   template:
