@@ -64,9 +64,9 @@ function HeroListComponent(heroService) {
   var _selectedId = null;
   var $ctrl = this;
 
-  this.$routerOnActivate = function(next) {
+  this.$routerOnActivate = function(next, previous) {
     // Load up the heroes for this view
-    heroService.getHeroes().then(function(heroes) {
+    return heroService.getHeroes().then(function(heroes) {
       $ctrl.heroes = heroes;
       _selectedId = next.params.id;
     });
@@ -80,10 +80,10 @@ function HeroListComponent(heroService) {
 function HeroDetailComponent(heroService) {
   var $ctrl = this;
 
-  this.$routerOnActivate = function(next) {
+  this.$routerOnActivate = function(next, previous) {
     // Get the hero identified by the route parameter
     var id = next.params.id;
-    heroService.getHero(id).then(function(hero) {
+    return heroService.getHero(id).then(function(hero) {
       $ctrl.hero = hero;
     });
   };
