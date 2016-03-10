@@ -61,19 +61,19 @@ function HeroService($q) {
 }
 
 function HeroListComponent(heroService) {
-  var _selectedId = null;
+  var selectedId = null;
   var $ctrl = this;
 
   this.$routerOnActivate = function(next, previous) {
     // Load up the heroes for this view
     return heroService.getHeroes().then(function(heroes) {
       $ctrl.heroes = heroes;
-      _selectedId = next.params.id;
+      selectedId = next.params.id;
     });
   };
 
   this.isSelected = function(hero) {
-    return (hero.id == _selectedId);
+    return (hero.id == selectedId);
   };
 }
 

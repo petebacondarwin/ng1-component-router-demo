@@ -59,8 +59,7 @@ function CrisisService($q) {
 }
 
 function CrisisListComponent(crisisService) {
-  var _selectedId = null;
-  var _router;
+  var selectedId = null;
   var ctrl = this;
 
   this.$routerOnActivate = function(next) {
@@ -68,12 +67,12 @@ function CrisisListComponent(crisisService) {
     // Load up the crises for this view
     crisisService.getCrises().then(function(crises) {
       ctrl.crises = crises;
-      _selectedId = next.params.id;
+      selectedId = next.params.id;
     });
   };
 
   this.isSelected = function(crisis) {
-    return (crisis.id == _selectedId);
+    return (crisis.id == selectedId);
   };
 
   this.onSelect = function(crisis) {
